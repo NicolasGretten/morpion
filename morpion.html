@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Morpion</title>
+    <style>
+        #tableau td {
+            width: 150px;
+            height: 150px;
+            border: solid 5px;
+        }
+        
+        #tableau {
+            margin: auto;
+            margin-top: 50px;
+        }
+        
+        .cross {
+            background-image: url(image_morpion/cross.png);
+            background-size: contain;
+        }
+        
+        .circle {
+            background-image: url(image_morpion/circle.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;margin-top: 25px;">Morpion</h1>
+    <div style="text-align: center;"><button id="start" class="btn btn-success" style="margin-top: 50px;font-size: 25px;">Commencer</button></div>
+
+    <table id="tableau" style="border-collapse: collapse;"></table>
+    <div style="text-align: center;margin-top: 50px;font-size: 25px;" id="info"></div>
+    <div style="text-align: center;margin-top: 50px;font-size: 25px;" id="recommencer"></div>
+    <!-- <script>
+        function Timer() {
+            var dt = new Date()
+            document.getElementById("info").innerHTML = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+            setTimeout("Timer()", 900);
+            console.log("Exécution de Timer()");
+        }
+        Timer();
+    </script> -->
+    <script>
+        var start = document.getElementById("start");
+        let info = document.getElementById("info");
+        start.onclick = () => {
+            start.style.display = ("none");
+            info.innerHTML = ("Au tour du Joueur 1 !");
+
+            ///////////////////////////////////////////////// GENERATION DE LA GRILLE /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            var table = document.getElementById("tableau");
+            var l = 3;
+            class Grille {
+                constructor(i, j, k, color) {
+                    for (i = 0; i < l; i++) {
+                        var tr = document.createElement("tr");
+                        for (j = 0; j < l; j++) {
+                            var td = document.createElement("td");
+                            tr.appendChild(td);
+                            td.id = ("case_" + i + "_" + j);
+                            td.className = ("cellule");
+                        }
+                        table.appendChild(tr);
+                    }
+                }
+            }
+            //////////////////////////////////////////////////CREATION DE LA GRILLE ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            var g = new Grille();
+
+
+            ///////////////////////////////////////////////// CHANGEMENT COULEUR DE LA CASE AU CLICK DE SOURIS//////////////////////////////////////////////////////////////////////////
+            // let info = document.getElementById("info");
+            let recommencer = document.getElementById("recommencer");
+            let cel = document.getElementsByClassName("cellule");
+            n = 0;
+            for (let m = 0; m < cel.length; m++) {
+
+                cel[m].onclick = (e) => {
+                    n++;
+
+                    if (n % 2) {
+                        e.target.classList = "cross";
+                        info.innerHTML = ("Joueur 1 à jouer ! <br> Au tour du joueur 2")
+                    } else {
+                        e.target.classList = "circle";
+                        info.innerHTML = ("Joueur 2 à jouer ! <br> Au tour du joueur 1")
+                    }
+
+                    var c = [];
+                    var ajoutC = c.push(e.target.id);
+
+                    var caseUn = document.getElementById("case_0_0");
+                    var caseDeux = document.getElementById("case_0_1");
+                    var caseTrois = document.getElementById("case_0_2");
+                    var caseQuatre = document.getElementById("case_1_0");
+                    var caseCinq = document.getElementById("case_1_1");
+                    var caseSix = document.getElementById("case_1_2");
+                    var caseSept = document.getElementById("case_2_0");
+                    var caseHuit = document.getElementById("case_2_1");
+                    var caseNeuf = document.getElementById("case_2_2");
+
+                    // PLAYER 1 CONDITION
+                    if (caseUn.classList == "cross" && caseDeux.classList == "cross" && caseTrois.classList ==
+                        "cross") {
+
+                        info.innerHTML = ("Joueur 1 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+
+                    }
+                    if (caseQuatre.classList == "cross" && caseCinq.classList == "cross" && caseSix.classList ==
+                        "cross") {
+                        info.innerHTML = ("Joueur 1 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+
+                    }
+                    if (caseSept.classList == "cross" && caseHuit.classList == "cross" && caseNeuf.classList ==
+                        "cross") {
+                        info.innerHTML = ("Joueur 1 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+
+
+                    if (caseUn.classList == "cross" && caseQuatre.classList == "cross" && caseSept.classList ==
+                        "cross") {
+                        info.innerHTML = ("Joueur 1 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+                    if (caseDeux.classList == "cross" && caseCinq.classList == "cross" && caseHuit.classList ==
+                        "cross") {
+                        info.innerHTML = ("Joueur 1 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+                    if (caseTrois.classList == "cross" && caseSix.classList == "cross" && caseNeuf.classList ==
+                        "cross") {
+                        info.innerHTML = ("Joueur 1 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+
+
+                    if (caseUn.classList == "cross" && caseCinq.classList == "cross" && caseNeuf.classList ==
+                        "cross") {
+                        info.innerHTML = ("Joueur 1 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+                    if (caseSept.classList == "cross" && caseCinq.classList == "cross" && caseTrois.classList ==
+                        "cross") {
+                        info.innerHTML = ("Joueur 1 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+
+                    // PLAYER 2 CONDITION
+
+                    if (caseUn.classList == "circle" && caseDeux.classList == "circle" && caseTrois.classList ==
+                        "circle") {
+                        info.innerHTML = ("Joueur 2 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+                    if (caseQuatre.classList == "circle" && caseCinq.classList == "circle" && caseSix
+                        .classList == "circle") {
+                        info.innerHTML = ("Joueur 2 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+                    if (caseSept.classList == "circle" && caseHuit.classList == "circle" && caseNeuf
+                        .classList == "circle") {
+                        info.innerHTML = ("Joueur 2 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+
+
+                    if (caseUn.classList == "circle" && caseQuatre.classList == "circle" && caseSept
+                        .classList == "circle") {
+                        info.innerHTML = ("Joueur 2 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+                    if (caseDeux.classList == "circle" && caseCinq.classList == "circle" && caseHuit
+                        .classList == "circle") {
+                        info.innerHTML = ("Joueur 2 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+                    if (caseTrois.classList == "circle" && caseSix.classList == "circle" && caseNeuf
+                        .classList == "circle") {
+                        info.innerHTML = ("Joueur 2 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+
+
+                    if (caseUn.classList == "circle" && caseCinq.classList == "circle" && caseNeuf.classList ==
+                        "circle") {
+                        info.innerHTML = ("Joueur 2 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+                    if (caseSept.classList == "circle" && caseCinq.classList == "circle" && caseTrois
+                        .classList == "circle") {
+                        info.innerHTML = ("Joueur 2 à gagner !");
+                        recommencer.innerHTML = ('<button class="btn btn-success" id="restartBtn">Recommencer ?</button>');
+                        let btn = document.getElementById("restartBtn");
+                        btn.onclick = () => {
+                            document.location.reload(true);
+                        };
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
